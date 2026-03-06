@@ -8,7 +8,6 @@ from loguru import logger
 from timm.utils import AverageMeter, random_seed
 
 from utils import build_optimizer
-from DNCPH.save_mat import Save_mat
 from _data import build_loader, get_topk, get_class_num
 from _network import build_model
 from _utils import prediction, mean_average_precision, calc_learnable_params, init, print_in_md
@@ -209,3 +208,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
