@@ -24,7 +24,7 @@ class MyDataset(Dataset):
         assert dataset in ["cifar", "flickr", "coco", "nuswide"]
         self.name = dataset
 
-        # 根据数据集名称映射到实际文件夹路径
+        
         if dataset == "cifar":
             data_path = os.path.join(root, "CIFAR-10")
             self.num_classes = 10
@@ -210,3 +210,4 @@ if __name__ == "__main__":
     for x in query_loader:
         print(x[0], x[1])
         break
+
