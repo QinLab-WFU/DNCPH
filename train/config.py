@@ -7,7 +7,7 @@ def get_config():
 
     # common settings
     parser.add_argument("--backbone", type=str, default="resnet50", help="see _network.py")
-    parser.add_argument("--data-dir", type=str, default="/home/virtue/singlemodal/Dataset", help="directory to dataset")
+    parser.add_argument("--data-dir", type=str, default="../_datasets", help="directory to dataset")
     parser.add_argument("--n-workers", type=int, default=4, help="number of dataloader workers")
     parser.add_argument("--n-epochs", type=int, default=300, help="number of epochs to train for")
     parser.add_argument("--batch-size", type=int, default=128, help="batch size for training")
@@ -47,4 +47,5 @@ def get_config():
     args.log_first = False
 
     return args
+
 
