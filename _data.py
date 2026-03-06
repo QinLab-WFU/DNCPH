@@ -87,7 +87,7 @@ class MyDataset(Dataset):
     def get_onehot_targets(self):
         return torch.from_numpy(np.vstack([x[1] for x in self.data]))
     def get_all_labels(self):
-        # 提取所有样本的标签（每个样本的标签是 self.data[i][1]），堆叠成二维numpy数组后转tensor
+       
         all_labels = np.vstack([x[1] for x in self.data])
         return torch.from_numpy(all_labels)
 
@@ -210,4 +210,5 @@ if __name__ == "__main__":
     for x in query_loader:
         print(x[0], x[1])
         break
+
 
