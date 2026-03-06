@@ -124,13 +124,7 @@ def train_val(args, train_loader, query_loader, dbase_loader):
                     "optimizer": deepcopy(optimizer.state_dict()),
                 }
                 count = 0
-                Save_mat(epoch=epoch, output_dim=args.n_bits, datasets=args.dataset,
-                         query_labels=qL,
-                         retrieval_labels=rL,
-                         query_img=qB,
-                         retrieval_img=rB,
-                         save_dir='.',
-                         mode_name="Proxy NCA", map=map_v)
+                
             else:
                 count += 1
                 if count == 10:
@@ -208,4 +202,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
