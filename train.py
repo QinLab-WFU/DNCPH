@@ -8,7 +8,6 @@ from loguru import logger
 from timm.utils import AverageMeter, random_seed
 
 from utils import build_optimizer
-from DNCPH.save_mat import Save_mat
 from _data import build_loader, get_topk, get_class_num
 from _network import build_model
 from _utils import prediction, mean_average_precision, calc_learnable_params, init, print_in_md
@@ -56,7 +55,7 @@ def train_epoch(args, dataloader, net, criterion, optimizer, epoch):
     )
 
     # return total_time
-    return stat_meters["loss"].avg  # 返回当前epoch的平均损失
+    return stat_meters["loss"].avg  
 
 def train_init(args):
     # setup net
@@ -125,13 +124,7 @@ def train_val(args, train_loader, query_loader, dbase_loader):
                     "optimizer": deepcopy(optimizer.state_dict()),
                 }
                 count = 0
-                Save_mat(epoch=epoch, output_dim=args.n_bits, datasets=args.dataset,
-                         query_labels=qL,
-                         retrieval_labels=rL,
-                         query_img=qB,
-                         retrieval_img=rB,
-                         save_dir='.',
-                         mode_name="Proxy NCA", map=map_v)
+               
             else:
                 count += 1
                 if count == 10:
@@ -209,3 +202,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
