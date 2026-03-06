@@ -211,7 +211,7 @@ def gen_test_data(B, C, K, is_multi_hot=False, normalize_embeddings=True, device
         onehots = F.one_hot(singles, C).float().to(device)
     return embeddings, singles, onehots
 
-#原来的
+
 def prediction(net, dataloader, out_idx=None, use_sign=True, verbose=True):
     device = next(net.parameters()).device
     codes, clses = [], []
@@ -229,36 +229,6 @@ def prediction(net, dataloader, out_idx=None, use_sign=True, verbose=True):
         clses.append(x[1])
     return torch.cat(codes).sign() if use_sign else torch.cat(codes), torch.cat(clses).to(device)
 
-#修改适用centerhash_vit
-def prediction1(net, dataloader, out_idx=None, use_sign=True, verbose=True):
-    device = next(net.parameters()).device
-    codes, clses = [], []
-    net.eval()
-    if verbose:
-        query_iter = tqdm(dataloader, desc=f"extracting {dataloader.dataset.usage} features")
-    else:
-        query_iter = dataloader
-
-    for x in query_iter:
-        with torch.no_grad():
-            # 1. 前向传播获取模型输出（可能是元组/单张量）
-            out = net(x[0].to(device))
-
-            # 2. 关键修正：若输出是元组，提取第一个张量；否则保留原张量
-            if isinstance(out, tuple):
-                out = out[0]  # 取u1（或out[1]，两者值相同）
-
-            # 3. 兼容原out_idx逻辑（若有需要，此处out已是单张量，out_idx无效可忽略）
-            out = out if out_idx is None else out[out_idx]
-
-        # 4. 收集特征和标签
-        codes.append(out)
-        clses.append(x[1])
-
-    # 5. 拼接并返回（sign处理哈希编码）
-    codes_cat = torch.cat(codes).sign() if use_sign else torch.cat(codes)
-    clses_cat = torch.cat(clses).to(device)
-    return codes_cat, clses_cat
 
 
 def mean_average_precision(qB, rB, qL, rL, topk=None) -> float:
@@ -1008,3 +978,4 @@ if __name__ == "__main__":
     d, s = find_diff_same(t1, t2, 0)
     print(d)
     print(s)
+
